@@ -44,7 +44,7 @@
               <li ng-class="{ active:tab.isSet(1) }"><a ng-click="tab.setTab(1)">Inicio</a></li>
                 <li ng-class="{ active:tab.isSet(2) }"><a ng-click="tab.setTab(2)">Encomendas</a></li>
                 <li ng-class="{ active:tab.isSet(3) }"><a ng-click="tab.setTab(3)">Stock produtos</a></li>
-                <li ng-class="{ active:tab.isSet(4) }"><a ng-click="tab.setTab(4)">Saldo bancário</a></li>
+                <li ng-class="{ active:tab.isSet(4) }"><a ng-click="tab.setTab(4)">Saldo bancários</a></li>
                 <!-- <li ng-class="{ active:tab.isSet(5) }"><a ng-click="tab.setTab(5)" href="#">Export</a></li> -->
             </ul>
             <div ng-show="tab.isSet(1)">
