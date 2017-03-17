@@ -1,0 +1,142 @@
+AJAX
+
+$pa = "../../../";
+include $pa.'includes/master.inc.php';
+
+function => return <<<EOT
+
+end => echo <<<EOT
+
+
+webservices
+$result = mysql_query($sql) or handle_mysql_error(mysql_error(), $sql, 0);
+if ($result AND $v = mysql_fetch_assoc($result))
+put everything on array $data a return it
+
+
+
+dbconnect
+
+// get a persistent connection
+$global_mysql_connection = mysql_pconnect ( DB_SERVER, DB_USERNAME, DB_PASSWORD );
+// if persistent connection failed
+if (!$global_mysql_connection)
+	{
+		usleep(100);
+		// make a normal connection
+		$global_mysql_connection = mysql_connect ( DB_SERVER, DB_USERNAME, DB_PASSWORD );
+		
+		// SEND ERROR SOMEWHERE
+		if (!$global_mysql_connection)
+			{
+				handle_mysql_error("Could not connect to database", "", 0);
+			}
+	}
+
+mysql_select_db(DB_TABLE);
+
+// for strings
+function dbs($data)
+	{
+		return mysql_real_escape_string($data);
+	}
+
+// for integers
+function dbi($int)
+	{
+		$int = trim($int);
+		return (int)$int;
+	}
+
+// for real numbers
+function dbr($real)
+	{
+		return preg_replace("/[^0-9.-]/", "", trim($real));
+	}
+
+// sends email and prints out error depending on constants
+function handle_mysql_error($error, $sql, $stop=0)
+	{
+		// get global variable
+		global $mysql_error_message_previously_sent;
+		// if error already sent
+		if ($mysql_error_message_previously_sent)
+			{
+				// if fatal problem
+				if ($stop > 0)
+					{
+						// die
+						die();
+					}
+				// just stop
+				return;
+			}
+		// mark error as already sent
+		$mysql_error_message_previously_sent = true;
+		
+		$to		 = httlopes@hotmail.com;
+		$subject = 'handle_mysql_error';
+		$headers = 'From: httlopes@hotmail.com'."\r\n".'Reply-To: httlopes@hotmail.com'."\r\n".'X-Mailer: PHP/'.phpversion();
+		$message = "MYSQL error reported at ".date("Y/m/d H:i:s")."\r\nERROR:\r\n".$error."\r\n\r\nSQL:\r\n".$sql."\r\n\r\nSTOP CODE: ".$stop;
+		$message .= "\r\n\r\nSITE: ".SITE_URL;
+		$message .= "\r\n\r\nSERVER: ".$_SERVER['SERVER_ADDR']." / ".$_SERVER['SERVER_SIGNATURE'];
+		$message .= "\r\n\r\nIP ADDRESS: ".$_SERVER['REMOTE_ADDR'];
+		$message .= "\r\n\r\nFILE: ".$_SERVER['PHP_SELF'];
+		$message .= str_replace("&", "\r\n&", $_SERVER['QUERY_STRING']);
+		mail($to, $subject, $message, $headers);
+		
+		if (!IS_LIVE)
+			{
+				echo "MYSQL ERROR REPORTED";
+				echo $error;
+			}
+		if ($stop > 0)
+			{
+				die();
+			}
+	}
+	
+
+//insert statement
+
+$sql = "INSERT INTO
+											".dbs(MD_TABLE)."
+										SET
+											location = '".dbs($page)."'
+										";
+								$result = mysql_query($sql) or handle_mysql_error(mysql_error(), $sql, 0);
+								if ($result)
+									{
+										$id = mysql_insert_id();
+										if ($id > 0)
+											{
+												header("Location: /metadata/edit/".$id);
+												die();
+											}
+									}
+							}	
+
+
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^salvage-vehicles/details/([^/\.]+)/?$ salvage-vehicles/details/index.php?&v=$1 [L]
+
+RewriteRule ^sell-my-car/([^/\.]+)/?$ sell-my-car/index.php?&r=$1 [L,QSA]
+
+
+for index
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ index.php?&r=$1 [L,QSA]
+
+
+
+$.ajax({
+		  url: "/includes/ajax/bvpr/",
+		  data: {},
+		  success: function(data) {	
+			$("#asd").html(data);
+		  }
+		});
