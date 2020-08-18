@@ -38,7 +38,7 @@
     <div class="container">
       <div class="masthead">
         <h3 class="text-muted">Stock dos artigos</h3>
-        <h3 class="text-muted">Stock dos artigossssss</h3>
+        <h3 class="text-muted">Stock d</h3>
         <h3 class="text-muted">with new branch, this only to be hold on new branch</h3>
         <nav>
           <section ng-controller="TabController as tab">
