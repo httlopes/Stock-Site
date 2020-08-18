@@ -38,6 +38,7 @@
     <div class="container">
       <div class="masthead">
         <h3 class="text-muted">Stock dos artigos</h3>
+        <h3 class="text-muted">Stock dos artigossssss</h3>
         <nav>
           <section ng-controller="TabController as tab">
             <ul class="nav nav-justified nav-pills">
